@@ -1,5 +1,5 @@
 #!/bin/bash
-# install.sh — Bootstrap lokey-dev-kit into an existing or new project
+# install.sh — Bootstrap stanley-dev-kit into an existing or new project
 # Usage: ./install.sh [project-path]
 #
 # Copies templates into the target project.
@@ -43,6 +43,8 @@ echo "--- Commands ---"
 copy_if_missing "$KIT_DIR/templates/.claude/commands/start.md"    "$PROJECT/.claude/commands/start.md"
 copy_if_missing "$KIT_DIR/templates/.claude/commands/sync-docs.md" "$PROJECT/.claude/commands/sync-docs.md"
 copy_if_missing "$KIT_DIR/templates/.claude/commands/release.md"  "$PROJECT/.claude/commands/release.md"
+copy_if_missing "$KIT_DIR/templates/.claude/commands/context.md"  "$PROJECT/.claude/commands/context.md"
+copy_if_missing "$KIT_DIR/templates/.claude/commands/refactor.md" "$PROJECT/.claude/commands/refactor.md"
 
 echo ""
 echo "--- Settings ---"
@@ -58,6 +60,22 @@ echo "--- Doc structure ---"
 copy_if_missing "$KIT_DIR/templates/docs/adr/000-template.md" "$PROJECT/docs/adr/000-template.md"
 copy_if_missing "$KIT_DIR/templates/docs/prd/INDEX.md"        "$PROJECT/docs/prd/INDEX.md"
 copy_if_missing "$KIT_DIR/templates/docs/prd/TEMPLATE.md"     "$PROJECT/docs/prd/TEMPLATE.md"
+copy_if_missing "$KIT_DIR/templates/docs/DECISIONS.md"        "$PROJECT/docs/DECISIONS.md"
+
+echo ""
+echo "--- Gitignore entries ---"
+if [ ! -f "$PROJECT/.gitignore" ]; then
+  echo "experiments/" > "$PROJECT/.gitignore"
+  echo "  + .gitignore (created with experiments/)"
+  CREATED=$((CREATED + 1))
+elif ! grep -q "experiments/" "$PROJECT/.gitignore"; then
+  echo "" >> "$PROJECT/.gitignore"
+  echo "experiments/" >> "$PROJECT/.gitignore"
+  echo "  + experiments/ added to .gitignore"
+else
+  echo "  ~ .gitignore already has experiments/"
+fi
+mkdir -p "$PROJECT/experiments"
 
 echo ""
 echo "────────────────────────────────────"

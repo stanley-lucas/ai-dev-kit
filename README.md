@@ -1,4 +1,4 @@
-# lokey-dev-kit
+# stanley-dev-kit
 
 Personal development kit for Claude Code. Provides standardized commands, templates, and conventions across all projects.
 
@@ -19,6 +19,8 @@ templates/                       # Copied into any project via install.sh
   .claude/
     commands/
       start.md                   # /start — session start protocol
+      context.md                 # /context — snapshot of where the project is
+      refactor.md                # /refactor — targeted cleanup after a feature
       sync-docs.md               # /sync-docs — update source of truth
       release.md                 # /release — version bump + GitHub release
     settings.json                # Project hooks (prettier on write)
@@ -26,6 +28,7 @@ templates/                       # Copied into any project via install.sh
     adr/000-template.md          # Architecture Decision Record template
     prd/INDEX.md                 # PRD index
     prd/TEMPLATE.md              # PRD template
+    DECISIONS.md                 # Quick decision log (read by /context)
 
 install.sh                       # Bootstrap any project (never overwrites)
 install-global.sh                # Install/update ~/.claude/
@@ -52,10 +55,12 @@ Then fill in the TODO sections in the project's `CLAUDE.md` and `ARCHITECTURE.md
 
 | Command | What it does |
 |---------|-------------|
+| `/context` | Snapshot of recent activity, open issues, and next priority |
 | `/start new` | Classify work, propose branch |
 | `/start fix issue-42` | Load issue context, verify branch |
-| `/commit` | Stage + commit with conventional message |
+| `/commit` | Lint changed files, stage, commit with conventional message |
 | `/push` | Push to remote |
+| `/refactor` | Targeted cleanup after a feature — scan for drift, apply surgically |
 | `/pr` | Lint, type-check, push, create PR |
 | `/sync-docs` | Update roadmap/PRD source of truth |
 | `/release` | Version bump, tag, GitHub release |

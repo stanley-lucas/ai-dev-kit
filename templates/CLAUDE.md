@@ -44,9 +44,11 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the full architecture.
 src/         # or app/, lib/, etc.
   # TODO: describe what lives where
 tests/
+experiments/ # disposable spikes — never production code, gitignored
 docs/
   adr/       # Architecture Decision Records
   prd/       # Product Requirements
+  DECISIONS.md  # quick decision log, read by /context
 ```
 
 ## Domain Vocabulary
@@ -68,6 +70,18 @@ docs/
 
 <!-- Anything that overrides or extends the global standards.
      Only write things that would surprise someone who read the global CLAUDE.md. -->
+
+## Prototyping
+
+Use `experiments/` for disposable spikes before committing to an approach.
+Files in `experiments/` are never production code — no tests required, no style enforcement.
+When a spike proves out, extract the useful parts into `src/` and delete the experiment.
+`experiments/` is gitignored by default.
+
+## Decisions Log
+
+Quick decisions and their rationale live in [DECISIONS.md](docs/DECISIONS.md).
+Read it before starting work on an area you haven't touched in a while.
 
 ## Common Issues
 

@@ -12,7 +12,13 @@ allowed-tools: Bash
    - `git diff --cached` — staged changes
    - `git log --oneline -5` — recent commit style
 
-2. Analyze all changes and draft a commit message:
+2. Check for lint/type issues on changed files:
+   - Look up the lint and type-check commands in the project's `CLAUDE.md`
+   - If staged files include `.ts`, `.tsx`, `.js`, or `.py` files, run the linter on those files only
+   - If linter reports errors (not warnings), fix them before proceeding
+   - If linter auto-fixes files, re-stage them
+
+3. Analyze all changes and draft a commit message:
    - Follow conventional commits: `type(scope): description`
    - Imperative mood. Focus on the WHY, not the what.
    - Include `Closes #XX` if resolving an issue.
